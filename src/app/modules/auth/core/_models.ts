@@ -1,3 +1,4 @@
+import { Response } from "../../../../_metronic/helpers";
 export interface AuthModel {
   api_token: string;
   refreshToken?: string;
@@ -20,3 +21,5 @@ export interface UserModel {
   language?: "en" | "de" | "es" | "fr" | "ja" | "zh" | "ru";
   auth?: AuthModel;
 }
+
+export type RequestOtpResponse = Response<{sent_code:boolean}>;
