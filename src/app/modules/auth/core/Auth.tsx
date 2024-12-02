@@ -3,7 +3,7 @@ import {FC, useState, useEffect, createContext, useContext, Dispatch, SetStateAc
 import {LayoutSplashScreen} from '../../../../_metronic/layout/core'
 import {AuthModel, UserModel} from './_models'
 import * as authHelper from './AuthHelpers'
-import {getUserByToken} from './_requests'
+import {getUserByToken,logoutUser} from './_requests'
 import {WithChildren} from '../../../../_metronic/helpers'
 
 type AuthContextProps = {
@@ -41,6 +41,7 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
   }
 
   const logout = () => {
+    logoutUser(auth?.api_token as string)
     saveAuth(undefined)
     setCurrentUser(undefined)
   }
