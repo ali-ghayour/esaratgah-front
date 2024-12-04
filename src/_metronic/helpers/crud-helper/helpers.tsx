@@ -55,19 +55,19 @@ function calculateIsAllDataSelected<T>(data: Array<T> | undefined, selected: Arr
 }
 
 function groupingOnSelect(
-  id: ID,
+  _id: ID,
   selected: Array<ID>,
   setSelected: Dispatch<SetStateAction<Array<ID>>>
 ) {
-  if (!id) {
+  if (!_id) {
     return
   }
 
-  if (selected.includes(id)) {
-    setSelected(selected.filter((itemId) => itemId !== id))
+  if (selected.includes(_id)) {
+    setSelected(selected.filter((itemId) => itemId !== _id))
   } else {
     const updatedSelected = [...selected]
-    updatedSelected.push(id)
+    updatedSelected.push(_id)
     setSelected(updatedSelected)
   }
 }
@@ -75,7 +75,7 @@ function groupingOnSelect(
 function groupingOnSelectAll<T>(
   isAllSelected: boolean,
   setSelected: Dispatch<SetStateAction<Array<ID>>>,
-  data?: Array<T & {id?: ID}>
+  data?: Array<T & {_id?: ID}>
 ) {
   if (isAllSelected) {
     setSelected([])
@@ -86,7 +86,7 @@ function groupingOnSelectAll<T>(
     return
   }
 
-  setSelected(data.filter((item) => item.id).map((item) => item.id))
+  setSelected(data.filter((item) => item._id).map((item) => item._id))
 }
 
 // Hook

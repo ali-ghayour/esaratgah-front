@@ -1,27 +1,31 @@
-import {ID, Response} from '../../../../../../_metronic/helpers'
-export type User = {
-  id?: ID
-  name?: string
-  avatar?: string
-  email?: string
-  position?: string
-  role?: string
-  last_login?: string
-  two_steps?: boolean
-  joined_day?: string
-  online?: boolean
-  initials?: {
-    label: string
-    state: string
-  }
-}
+import { Response } from "../../../../../../_metronic/helpers";
 
-export type UsersQueryResponse = Response<Array<User>>
+export type AuthModel = {
+  api_token: string;
+  refreshToken?: string;
+};
+export type User = {
+  _id?: number;
+  name?: string;
+  familly?: string;
+  username?: string;
+  phone_number?: string;
+  password?: string;
+  role?: number[];
+  permissions?: number[];
+  camp?: string;
+  categories?: Array<string>;
+  files?: { total_file: number; total_file_size: number };
+  otp?: { code: string; expire_at: number };
+  pic?: number | string;
+  language?: "en" | "fa";
+  auth?: AuthModel;
+};
+
+export type UsersQueryResponse = Response<Array<User>>;
 
 export const initialUser: User = {
-  avatar: 'avatars/300-6.jpg',
-  position: 'Art Director',
-  role: 'Administrator',
-  name: '',
-  email: '',
-}
+  pic: "avatars/300-6.jpg",
+  name: "",
+  familly: "",
+};
