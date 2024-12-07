@@ -6,6 +6,7 @@ import {UserActionsCell} from './UserActionsCell'
 import {UserSelectionCell} from './UserSelectionCell'
 import {UserCustomHeader} from './UserCustomHeader'
 import {UserSelectionHeader} from './UserSelectionHeader'
+import { UserStatusCell } from './UserStatusCell'
 import {User} from '../../core/_models'
 
 const usersColumns: ReadonlyArray<Column<User>> = [
@@ -36,6 +37,14 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   {
     Header: (props) => <UserCustomHeader tableProps={props} title='Role' className='min-w-125px' />,
     accessor: 'role',
+  },
+  {
+    Header: (props) => (
+      <UserCustomHeader tableProps={props} title='Status' className='min-w-125px' />
+    ),
+    id: 'status',
+    // accessor : 'status'
+    Cell: ({...props}) => <UserStatusCell status={props.data[props.row.index].status} />,
   },
   {
     Header: (props) => (

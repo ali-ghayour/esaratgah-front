@@ -20,6 +20,8 @@ export type User = {
   pic?: number | string;
   language?: "en" | "fa";
   auth?: AuthModel;
+  status: "pending" | "active" | "locked";
+  deleted?: boolean;
 };
 
 export type UsersQueryResponse = Response<Array<User>>;
@@ -28,4 +30,5 @@ export const initialUser: User = {
   pic: "avatars/300-6.jpg",
   name: "",
   familly: "",
+  status : "active"
 };
