@@ -6,6 +6,7 @@ import {
   calculateIsAllDataSelected,
   groupingOnSelect,
   initialListView,
+  initialQueryState,
   ListViewContextProps,
   groupingOnSelectAll,
   WithChildren,
@@ -21,6 +22,7 @@ const ListViewProvider: FC<WithChildren> = ({children}) => {
   const data = useQueryResponseData()
   const disabled = useMemo(() => calculatedGroupingIsDisabled(isLoading, data), [isLoading, data])
   const isAllSelected = useMemo(() => calculateIsAllDataSelected(data, selected), [data, selected])
+  const [perPage , setPerPage] = useState(initialQueryState.items_per_page)
 
   return (
     <ListViewContext.Provider
@@ -30,6 +32,8 @@ const ListViewProvider: FC<WithChildren> = ({children}) => {
         setItemIdForUpdate,
         disabled,
         isAllSelected,
+        perPage,
+        setPerPage,
         onSelect: (id: ID) => {
           groupingOnSelect(id, selected, setSelected)
         },
