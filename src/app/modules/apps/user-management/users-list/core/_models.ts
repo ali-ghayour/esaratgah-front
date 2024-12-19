@@ -7,7 +7,7 @@ export type AuthModel = {
 export type User = {
   _id?: number;
   name?: string;
-  familly?: string;
+  family?: string;
   username?: string;
   phone_number?: string;
   password?: string;
@@ -29,6 +29,6 @@ export type UsersQueryResponse = Response<Array<User>>;
 export const initialUser: User = {
   pic: "avatars/300-6.jpg",
   name: "",
-  familly: "",
+  family: "",
   status : "active"
 };
