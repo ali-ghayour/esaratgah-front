@@ -36,7 +36,7 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   },
   {
     Header: (props) => <UserCustomHeader tableProps={props} title='Role' className='min-w-125px' />,
-    accessor: 'role',
+    accessor: 'role.name',
   },
   {
     Header: (props) => (

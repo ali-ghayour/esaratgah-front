@@ -5,7 +5,6 @@ import { isNotEmpty, KTCard } from "../../../../../../_metronic/helpers";
 import { initialRole, Permissions, Role } from "../core/_models";
 import clsx from "clsx";
 import { useListView } from "../core/ListViewProvider";
-import { UsersListLoading } from "../components/loading/UsersListLoading";
 import { createRole, updateRole } from "../core/_requests";
 import { useQueryResponse } from "../core/QueryResponseProvider";
 

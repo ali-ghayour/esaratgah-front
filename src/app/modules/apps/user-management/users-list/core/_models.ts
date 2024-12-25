@@ -1,4 +1,5 @@
 import { Response } from "../../../../../../_metronic/helpers";
+import { Permissions, Role } from "../../../role-management/roles-list/core/_models";
 
 export type AuthModel = {
   api_token: string;
@@ -11,8 +12,8 @@ export type User = {
   username?: string;
   phone_number?: string;
   password?: string;
-  role?: number[];
-  permissions?: number[];
+  role?: number
+  permissions?: Permissions;
   camp?: string;
   categories?: Array<string>;
   files?: { total_file: number; total_file_size: number };
@@ -20,7 +21,7 @@ export type User = {
   pic?: number | string;
   language?: "en" | "fa";
   auth?: AuthModel;
-  status: "pending" | "active" | "locked";
+  status?: "pending" | "active" | "locked";
   deleted?: boolean;
 };
 
@@ -30,5 +31,5 @@ export const initialUser: User = {
   pic: "avatars/300-6.jpg",
   name: "",
   family: "",
-  status : "active"
+  status: "active",
 };

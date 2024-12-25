@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { FC } from "react";
 
 type Props = {
-  status: "pending" | "active" | "locked";
+  status?: "pending" | "active" | "locked";
 };
 
 const UserStatusCell: FC<Props> = ({ status }) => (

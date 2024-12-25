@@ -71,7 +71,7 @@ export const initialQueryResponse = {
 };
 
 export type ListViewContextProps = {
-  selected?: Array<ID>;
+  selected: Array<ID>;
   onSelect?: (selectedId: ID) => void;
   onSelectAll?: () => void;
   clearSelected?: () => void;

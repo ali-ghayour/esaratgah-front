@@ -18,9 +18,9 @@ const getPermissions = (): Promise<Permissions> => {
     .then((response: AxiosResponse<Permissions>) => response.data);
 };
 
-const getRoles = (query: string): Promise<RolesQueryResponse> => {
+const getRoles = (): Promise<RolesQueryResponse> => {
   return axios
-    .get(`${GET_ROLES_URL}?${query}`)
+    .get(`${GET_ROLES_URL}`)
     .then((d: AxiosResponse<RolesQueryResponse>) => d.data);
 };
 
@@ -40,7 +40,7 @@ const createRole = (role: Role): Promise<Role | undefined> => {
 
 const updateRole = (role: Role): Promise<Role | undefined> => {
   return axios
-    .post(`${ROLE_URL}/${role._id}`, role)
+    .put(`${ROLE_URL}/${role._id}`, role)
     .then((response: AxiosResponse<Response<Role>>) => response.data)
     .then((response: Response<Role>) => response.data);
 };

@@ -34,7 +34,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
   } = useQuery(
     `${QUERIES.ROLES_LIST}-${query}`,
     () => {
-      return getRoles(query)
+      return getRoles()
     },
     {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false}
   )

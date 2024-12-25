@@ -12,7 +12,7 @@ const RoleEditModalFormWrapper = () => {
     data: role,
     error,
   } = useQuery(
-    `${QUERIES.USERS_LIST}-user-${itemIdForUpdate}`,
+    `${QUERIES.ROLES_LIST}-role-${itemIdForUpdate}`,
     () => {
       return getRoleById(itemIdForUpdate);
     },
