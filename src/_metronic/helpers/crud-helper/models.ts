@@ -71,19 +71,19 @@ export const initialQueryResponse = {
 };
 
 export type ListViewContextProps = {
-  selected: Array<ID>;
-  onSelect: (selectedId: ID) => void;
-  onSelectAll: () => void;
-  clearSelected: () => void;
+  selected?: Array<ID>;
+  onSelect?: (selectedId: ID) => void;
+  onSelectAll?: () => void;
+  clearSelected?: () => void;
   // NULL => (CREATION MODE) | MODAL IS OPENED
   // NUMBER => (EDIT MODE) | MODAL IS OPENED
   // UNDEFINED => MODAL IS CLOSED
   itemIdForUpdate?: ID;
   setItemIdForUpdate: Dispatch<SetStateAction<ID>>;
-  isAllSelected: boolean;
+  isAllSelected?: boolean;
   disabled: boolean;
-  perPage: number;
-  setPerPage: Dispatch<SetStateAction<number>>;
+  perPage?: number;
+  setPerPage?: Dispatch<SetStateAction<number>>;
 };
 
 export const initialListView: ListViewContextProps = {

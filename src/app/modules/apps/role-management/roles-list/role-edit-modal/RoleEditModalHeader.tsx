@@ -1,7 +1,7 @@
 import {KTIcon} from '../../../../../../_metronic/helpers'
 import {useListView} from '../core/ListViewProvider'
 
-const UserEditModalHeader = () => {
+const RoleEditModalHeader = () => {
   const {setItemIdForUpdate} = useListView()
 
   return (
@@ -24,4 +24,4 @@ const UserEditModalHeader = () => {
   )
 }
 
-export {UserEditModalHeader}
+export {RoleEditModalHeader}

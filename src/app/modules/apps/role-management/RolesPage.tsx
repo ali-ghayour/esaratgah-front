@@ -1,6 +1,6 @@
 import {Route, Routes, Outlet, Navigate} from 'react-router-dom'
 import {PageLink, PageTitle} from '../../../../_metronic/layout/core'
-import {UsersListWrapper} from './users-list/UsersList'
+import {RolesListWrapper} from './roles-list/RolesList'
 
 const rolesBreadcrumbs: Array<PageLink> = [
   {
@@ -26,7 +26,7 @@ const RolesPage = () => {
           element={
             <>
               <PageTitle breadcrumbs={rolesBreadcrumbs}>Roles list</PageTitle>
-              <UsersListWrapper />
+              <RolesListWrapper />
             </>
           }
         />

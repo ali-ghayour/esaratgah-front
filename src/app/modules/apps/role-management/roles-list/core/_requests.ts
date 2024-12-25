@@ -1,10 +1,22 @@
 import axios, { AxiosResponse } from "axios";
 import { ID, Response } from "../../../../../../_metronic/helpers";
-import { Role, RolesQueryResponse } from "./_models";
+import {
+  Role,
+  RolesQueryResponse,
+  Permissions,
+  PermissionQueryResponse,
+} from "./_models";
 
 const API_URL = import.meta.env.VITE_APP_BACKOFFICE_V1_API_URL;
 const ROLE_URL = `${API_URL}/role`;
 const GET_ROLES_URL = `${API_URL}/roles/query`;
+const GET_PERMISSIONS = `${API_URL}/permissions`;
+
+const getPermissions = (): Promise<Permissions> => {
+  return axios
+    .get(GET_PERMISSIONS)
+    .then((response: AxiosResponse<Permissions>) => response.data);
+};
 
 const getRoles = (query: string): Promise<RolesQueryResponse> => {
   return axios
@@ -21,7 +33,7 @@ const getRoleById = (id: ID): Promise<Role | undefined> => {
 
 const createRole = (role: Role): Promise<Role | undefined> => {
   return axios
-    .put(ROLE_URL, role)
+    .post(ROLE_URL, role)
     .then((response: AxiosResponse<Response<Role>>) => response.data)
     .then((response: Response<Role>) => response.data);
 };
@@ -49,4 +61,5 @@ export {
   getRoleById,
   createRole,
   updateRole,
+  getPermissions,
 };
