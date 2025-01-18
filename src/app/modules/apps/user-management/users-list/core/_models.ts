@@ -12,7 +12,7 @@ export type User = {
   username?: string;
   phone_number?: string;
   password?: string;
-  role?: number
+  role?: Role;
   permissions?: Permissions;
   camp?: string;
   categories?: Array<string>;
