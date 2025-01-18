@@ -7,15 +7,14 @@ import { getPermissions, getRoleById } from "../core/_requests";
 const RoleEditModalFormWrapper = () => {
   const { itemIdForUpdate, setItemIdForUpdate } = useListView();
   const enabledQuery: boolean = isNotEmpty(itemIdForUpdate);
+
   const {
-    isLoading,
+    isLoading: isRoleLoading,
     data: role,
     error,
   } = useQuery(
     `${QUERIES.ROLES_LIST}-role-${itemIdForUpdate}`,
-    () => {
-      return getRoleById(itemIdForUpdate);
-    },
+    () => getRoleById(itemIdForUpdate),
     {
       cacheTime: 0,
       enabled: enabledQuery,
@@ -26,26 +25,35 @@ const RoleEditModalFormWrapper = () => {
     }
   );
 
-  const { data:permissions } = useQuery("permissions", () => {
-    return (
-      getPermissions()
-    );
-  });
+  const { data: permissions, isLoading: isPermissionsLoading } = useQuery(
+    "permissions",
+    getPermissions
+  );
+
+  // Show loading state while either query is loading
+  if (isRoleLoading || isPermissionsLoading) {
+    return <div>Loading...</div>;
+  }
+
+  // Handle case where `permissions` or `role` is undefined
+  if (!permissions) {
+    return <div>Error loading permissions</div>;
+  }
 
   if (!itemIdForUpdate) {
     return (
       <RoleEditModalForm
-        isUserLoading={isLoading}
+        isUserLoading={isRoleLoading}
         role={{ _id: undefined }}
         permissions={permissions}
       />
     );
   }
 
-  if (!isLoading && !error && role) {
+  if (!isRoleLoading && !error && role) {
     return (
       <RoleEditModalForm
-        isUserLoading={isLoading}
+        isUserLoading={isRoleLoading}
         role={role}
         permissions={permissions}
       />

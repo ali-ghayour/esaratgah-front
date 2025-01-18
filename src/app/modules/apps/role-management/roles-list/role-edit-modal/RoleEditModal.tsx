@@ -14,7 +14,7 @@ const RoleEditModal = () => {
     <>
       <div
         className='modal fade show d-block'
-        id='kt_modal_add_user'
+        id='kt_modal_add_role'
         role='dialog'
         tabIndex={-1}
         aria-modal='true'

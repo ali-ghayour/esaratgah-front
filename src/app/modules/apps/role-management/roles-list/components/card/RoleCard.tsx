@@ -31,7 +31,7 @@ const RoleCardWrapper: FC<Props> = ({ roles }) => {
 
 const AddRoleCard = () => {
   const { setItemIdForUpdate } = useListView();
-  const openAddUserModal = () => {
+  const openAddRoleModal = () => {
     setItemIdForUpdate(null);
   };
   return (
@@ -41,8 +41,6 @@ const AddRoleCard = () => {
           <button
             type="button"
             className="btn btn-clear d-flex flex-column flex-center"
-            data-bs-toggle="modal"
-            data-bs-target="#kt_modal_add_role"
           >
             <img
               src={toAbsoluteUrl("media/illustrations/sketchy-1/4.png")}
@@ -51,7 +49,7 @@ const AddRoleCard = () => {
             />
             <div
               className="fw-bold fs-3 text-gray-600 text-hover-primary"
-              onClick={openAddUserModal}
+              onClick={openAddRoleModal}
             >
               Add New Role
             </div>
@@ -64,7 +62,7 @@ const AddRoleCard = () => {
 
 const RoleCard: FC<RProps> = ({ role }) => {
   const { setItemIdForUpdate } = useListView();
-  const { refetch } = useQueryResponse();
+  // const { refetch } = useQueryResponse();
   const { query } = useQueryResponse();
   const queryClient = useQueryClient();
 

@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { isNotEmpty, KTCard } from "../../../../../../_metronic/helpers";
+import { isNotEmpty } from "../../../../../../_metronic/helpers";
 import { initialRole, Permissions, Role } from "../core/_models";
 import clsx from "clsx";
 import { useListView } from "../core/ListViewProvider";
@@ -28,7 +28,7 @@ const editUserSchema = Yup.object().shape({
 const RoleEditModalForm: FC<Props> = ({ role, isUserLoading, permissions }) => {
   const { setItemIdForUpdate } = useListView();
   const { refetch } = useQueryResponse();
-
+  
   const [roleForEdit] = useState<Role>({
     ...role,
     name: role.name || initialRole.name,
@@ -104,7 +104,7 @@ const RoleEditModalForm: FC<Props> = ({ role, isUserLoading, permissions }) => {
   return (
     <>
       <form
-        id="kt_modal_add_user_form"
+        id="kt_modal_add_role_form"
         className="form"
         onSubmit={formik.handleSubmit}
         noValidate
@@ -112,12 +112,12 @@ const RoleEditModalForm: FC<Props> = ({ role, isUserLoading, permissions }) => {
         {/* begin::Scroll */}
         <div
           className="d-flex flex-column scroll-y me-n7 pe-7"
-          id="kt_modal_add_user_scroll"
+          id="kt_modal_add_role_scroll"
           data-kt-scroll="true"
           data-kt-scroll-activate="{default: false, lg: true}"
           data-kt-scroll-max-height="auto"
-          data-kt-scroll-dependencies="#kt_modal_add_user_header"
-          data-kt-scroll-wrappers="#kt_modal_add_user_scroll"
+          data-kt-scroll-dependencies="#kt_modal_add_role_header"
+          data-kt-scroll-wrappers="#kt_modal_add_role_scroll"
           data-kt-scroll-offset="300px"
         >
           {/* Input group for Name */}
