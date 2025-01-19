@@ -80,7 +80,7 @@ const AuthInit: FC<WithChildren> = ({children}) => {
     if (auth && auth.api_token) {
       requestUser(auth.api_token)
     } else {
-      logout()
+      currentUser ? logout() :
       setShowSplashScreen(false)
     }
     // eslint-disable-next-line
