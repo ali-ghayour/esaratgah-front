@@ -43,8 +43,6 @@ export function Login() {
       try {
         if (!values.code) {
           const result = await request_otp(values.phone_number);
-          console.log(result?.payload?.message);
-
           setShowCodeInput(false);
           if (result?.data?.sent_code) {
             setSubmitting(false);
