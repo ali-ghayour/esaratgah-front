@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { AuthModel, RequestOtpResponse, UserModel } from "./_models";
 
 const API_URL = import.meta.env.VITE_APP_BACKOFFICE_V1_API_URL;
@@ -20,10 +20,9 @@ export function login(phone_number: string, code: string | null) {
 }
 
 export function request_otp(phone_number: string) {
-  console.log(API_URL);
   return axios
     .post(REQUEST_OTP_URL, { phone_number })
-    .then((response: RequestOtpResponse) => response.data);
+    .then((response: AxiosResponse<RequestOtpResponse>) => response.data);
 }
 
 // Server should return AuthModel

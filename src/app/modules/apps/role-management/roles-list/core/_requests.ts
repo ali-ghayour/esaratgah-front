@@ -3,8 +3,7 @@ import { ID, Response } from "../../../../../../_metronic/helpers";
 import {
   Role,
   RolesQueryResponse,
-  Permissions,
-  PermissionQueryResponse,
+  Permissions
 } from "./_models";
 
 const API_URL = import.meta.env.VITE_APP_BACKOFFICE_V1_API_URL;

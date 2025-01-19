@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { getUserByToken, login, request_otp } from "../core/_requests";
 // import { toAbsoluteUrl } from "../../../../_metronic/helpers";
 import { useAuth } from "../core/Auth";
+import { useToast } from "../../../customProviders/useToast";
 
 const loginSchema = Yup.object().shape({
   phone_number: Yup.string()
@@ -15,7 +16,7 @@ const loginSchema = Yup.object().shape({
 });
 
 const initialValues = {
-  phone_number: "09123456789",
+  phone_number: "09358441163",
   code: "",
 };
 
@@ -23,6 +24,16 @@ export function Login() {
   const [loading, setLoading] = useState(false);
   const [showCodeInput, setShowCodeInput] = useState(true);
   const { saveAuth, setCurrentUser } = useAuth();
+  const { addToast } = useToast();
+
+  const showSuccessToast = (message: string) => {
+    addToast({
+      title: "Success",
+      message,
+      type: "light-success",
+      autoHide: 3000, // 3 seconds
+    });
+  };
 
   const formik = useFormik({
     initialValues,
@@ -32,20 +43,24 @@ export function Login() {
       try {
         if (!values.code) {
           const result = await request_otp(values.phone_number);
+          console.log(result?.payload?.message);
+
           setShowCodeInput(false);
-          if (result?.sent_code) {
+          if (result?.data?.sent_code) {
             setSubmitting(false);
             setLoading(false);
+            setStatus(null);
+            showSuccessToast(result?.payload?.message as string);
           }
         } else {
           const { data: auth } = await login(values.phone_number, values.code);
-          saveAuth(auth)
-          const {data: user} = await getUserByToken(auth.api_token)
-          setCurrentUser(user)
+          saveAuth(auth);
+          const { data: user } = await getUserByToken(auth.api_token);
+          setCurrentUser(user);
         }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error:any) {
-        console.error(error)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        console.error(error);
 
         saveAuth(undefined);
         setStatus(

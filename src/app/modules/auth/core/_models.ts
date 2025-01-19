@@ -30,4 +30,5 @@ export interface UserModel {
   auth?: AuthModel;
 }
 
-export type RequestOtpResponse = Response<{sent_code:boolean}>;
+export type OTPResponse = {sent_code : boolean}
+export type RequestOtpResponse = Response<OTPResponse>;
