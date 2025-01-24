@@ -6,18 +6,20 @@ import {checkIsActive, KTIcon, WithChildren} from '../../../../helpers'
 import {useLayout} from '../../../core'
 
 type Props = {
-  to: string
-  title: string
-  icon?: string
-  fontIcon?: string
-  hasBullet?: boolean
-}
+  to: string;
+  title: string;
+  icon?: string;
+  iconType?: "duotone" | "solid" | "outline";
+  fontIcon?: string;
+  hasBullet?: boolean;
+};
 
 const SidebarMenuItem: FC<Props & WithChildren> = ({
   children,
   to,
   title,
   icon,
+  iconType,
   fontIcon,
   hasBullet = false,
 }) => {
@@ -37,7 +39,7 @@ const SidebarMenuItem: FC<Props & WithChildren> = ({
         {icon && app?.sidebar?.default?.menu?.iconType === 'svg' && (
           <span className='menu-icon'>
             {' '}
-            <KTIcon iconName={icon} className='fs-2' />
+            <KTIcon iconName={icon} iconType={iconType} className='fs-2' />
           </span>
         )}
         {fontIcon && app?.sidebar?.default?.menu?.iconType === 'font' && (
