@@ -7,6 +7,7 @@ import {MenuTestPage} from '../pages/MenuTestPage'
 import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {WithChildren} from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
+import FilesPage from '../modules/apps/file-management/FilesPage'
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -21,14 +22,14 @@ const PrivateRoutes = () => {
     <Routes>
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
-        <Route path='auth/*' element={<Navigate to='/dashboard' />} />
+        <Route path="auth/*" element={<Navigate to="/dashboard" />} />
         {/* Pages */}
-        <Route path='dashboard' element={<DashboardWrapper />} />
-        <Route path='builder' element={<BuilderPageWrapper />} />
-        <Route path='menu-test' element={<MenuTestPage />} />
+        <Route path="dashboard" element={<DashboardWrapper />} />
+        <Route path="builder" element={<BuilderPageWrapper />} />
+        <Route path="menu-test" element={<MenuTestPage />} />
         {/* Lazy Modules */}
         <Route
-          path='crafted/pages/profile/*'
+          path="crafted/pages/profile/*"
           element={
             <SuspensedView>
               <ProfilePage />
@@ -36,7 +37,7 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path='crafted/pages/wizards/*'
+          path="crafted/pages/wizards/*"
           element={
             <SuspensedView>
               <WizardsPage />
@@ -44,7 +45,7 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path='crafted/widgets/*'
+          path="crafted/widgets/*"
           element={
             <SuspensedView>
               <WidgetsPage />
@@ -52,7 +53,7 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path='crafted/account/*'
+          path="crafted/account/*"
           element={
             <SuspensedView>
               <AccountPage />
@@ -60,7 +61,7 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path='apps/chat/*'
+          path="apps/chat/*"
           element={
             <SuspensedView>
               <ChatPage />
@@ -68,7 +69,7 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path='apps/user-management/*'
+          path="apps/user-management/*"
           element={
             <SuspensedView>
               <UsersPage />
@@ -76,18 +77,26 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path='apps/role-management/*'
+          path="apps/role-management/*"
           element={
             <SuspensedView>
               <RolesPage />
             </SuspensedView>
           }
         />
+        <Route
+          path="apps/file-management/*"
+          element={
+            <SuspensedView>
+              <FilesPage />
+            </SuspensedView>
+          }
+        />
         {/* Page Not Found */}
-        <Route path='*' element={<Navigate to='/error/404' />} />
+        <Route path="*" element={<Navigate to="/error/404" />} />
       </Route>
     </Routes>
-  )
+  );
 }
 
 const SuspensedView: FC<WithChildren> = ({children}) => {

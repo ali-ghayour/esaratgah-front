@@ -191,6 +191,14 @@ const SidebarMenuMain = () => {
           hasBullet={true}
         />
       </SidebarMenuItemWithSub>
+      <SidebarMenuItem
+        to="/apps/file-management/"
+        icon="folder"
+        iconType="outline"
+        // title={intl.formatMessage({ id: "MENU.FILEMANAGEMENT" })}
+        title="Files"
+        fontIcon="bi-app-indicator"
+      />
 
       <div className="menu-item">
         <a
