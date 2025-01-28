@@ -20,6 +20,7 @@ import "./_metronic/assets/sass/style.scss";
 import { AppRoutes } from "./app/routing/AppRoutes";
 import { AuthProvider, setupAxios } from "./app/modules/auth";
 import { ToastProvider } from "./app/customProviders/ToastProvider";
+import { SwalProvider } from "./app/customProviders/SwalProvider";
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.
@@ -42,7 +43,9 @@ if (container) {
       <MetronicI18nProvider>
         <AuthProvider>
           <ToastProvider>
-            <AppRoutes />
+            <SwalProvider>
+              <AppRoutes />
+            </SwalProvider>
           </ToastProvider>
         </AuthProvider>
       </MetronicI18nProvider>

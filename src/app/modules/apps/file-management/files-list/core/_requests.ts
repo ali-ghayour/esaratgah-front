@@ -50,6 +50,13 @@ const getTotalFileInfo = (): Promise<TotalFileInfoResponse> => {
 const deleteFile = (fileId: ID): Promise<void> => {
   return axios.delete(`${FILE_URL}/${fileId}`).then(() => {});
 };
+// const deleteSelectedFiles = async (selected: string[]) => {
+//   const response = await axios.post(`/delete-files`, { files: selected });
+//   if (response.status !== 200) {
+//     throw new Error("Failed to delete files");
+//   }
+//   return response.data; // Mutation response
+// };
 
 const deleteSelectedFiles = (userIds: Array<ID>): Promise<void> => {
   const requests = userIds.map((id) => axios.delete(`${FILE_URL}/${id}`));

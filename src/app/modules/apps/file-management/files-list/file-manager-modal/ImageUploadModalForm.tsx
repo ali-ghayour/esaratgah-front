@@ -39,16 +39,40 @@ const ImageUploadModalForm = () => {
 
   const clearAll = () => setFiles([]);
 
-  const handleUpload = async () => {
-    try {
-      await uploadFile(files);
-      clearAll();
-      refetch();
-      setItemIdForUpdate(undefined);
-    } catch (error) {
-      console.error("Error uploading files:", error);
-      alert("Failed to upload files.");
+  const cancel = (withRefresh?: boolean) => {
+    if (withRefresh) {
+      // Add a delay before re-fetching the data
+      setTimeout(() => {
+        refetch();
+      }, 2000); // Adjust the delay (e.g., 2000ms = 2 seconds) based on your server's deletion time
     }
+    setItemIdForUpdate(undefined);
+  };
+
+  const handleUpload = async () => {
+    // setSubmitting(true);
+    try {
+      // if (isNotEmpty(values._id)) {
+      //   await updateUser(values);
+      // } else {
+      await uploadFile(files)
+      // }
+    } catch (ex) {
+      console.error(ex);
+    } finally {
+      // setSubmitting(true);
+      cancel(true);
+    }
+    // try {
+    //   await uploadFile(files).then(() => {
+    //     clearAll();
+    //     setItemIdForUpdate(undefined);
+    //     refetch();
+    //   });
+    // } catch (error) {
+    //   console.error("Error uploading files:", error);
+    //   alert("Failed to upload files.");
+    // }
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

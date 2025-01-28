@@ -1,3 +1,6 @@
+.selected-card {
+  border: 2px solid #0d6efd; /* Highlight with a border or background color */
+}
 /* Hide the checkbox by default */
 .hover-checkbox-custom ,
 .hover-edit-custom{

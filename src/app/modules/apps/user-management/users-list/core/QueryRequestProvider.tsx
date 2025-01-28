@@ -7,6 +7,8 @@ import {
   WithChildren,
 } from '../../../../../../_metronic/helpers'
 
+initialQueryRequest.state.items_per_page = 10
+
 const QueryRequestContext = createContext<QueryRequestContextProps>(initialQueryRequest)
 
 const QueryRequestProvider: FC<WithChildren> = ({children}) => {

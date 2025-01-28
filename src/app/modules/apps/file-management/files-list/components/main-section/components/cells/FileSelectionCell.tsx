@@ -2,7 +2,6 @@ import { FC, useMemo } from "react";
 import { ID } from "../../../../../../../../../_metronic/helpers";
 import { useListView } from "../../../../core/ListViewProvider";
 import clsx from "clsx";
-import "./FileCell.css";
 
 type Props = {
   id: ID;
@@ -24,7 +23,8 @@ const FileSelectionCell: FC<Props> = ({ id }) => {
         className="form-check-input"
         data-kt-check={isSelected}
         checked={isSelected}
-        onChange={() => onSelect?.(id)}
+        onChange={() => onSelect?.(id)} // Toggles selection
+        onClick={(e) => e.stopPropagation()} // Prevent click from propagating to the card container
       />
     </div>
   );
