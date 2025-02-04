@@ -2,11 +2,11 @@ import clsx from "clsx";
 import {
   useQueryResponseLoading,
   useQueryResponsePagination,
-} from "../../../../core/QueryResponseProvider";
-import { useQueryRequest } from "../../../../core/QueryRequestProvider";
-import { PaginationState } from "../../../../../../../../../_metronic/helpers";
+} from "../../../../../../core/QueryResponseProvider";
+import { useQueryRequest } from "../../../../../../core/QueryRequestProvider";
+import { PaginationState } from "../../../../../../../../../../../_metronic/helpers";
 import { useMemo } from "react";
-import { useListView } from "../../../../core/ListViewProvider";
+import { useListView } from "../../../../../../core/ListViewProvider";
 
 const mappedLabel = (label: string): string => {
   if (label === "&laquo; Previous") {

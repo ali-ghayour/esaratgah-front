@@ -1,11 +1,11 @@
 import { FC, useEffect } from "react";
-import { ID, QUERIES } from "../../../../../../../../../_metronic/helpers";
-import { useListView } from "../../../../core/ListViewProvider";
-import { useQueryResponse } from "../../../../core/QueryResponseProvider";
+import { ID, QUERIES } from "../../../../../../../../../../../_metronic/helpers";
+import { useListView } from "../../../../../../core/ListViewProvider";
+import { useQueryResponse } from "../../../../../../core/QueryResponseProvider";
 import { useMutation, useQueryClient } from "react-query";
-import { MenuComponent } from "../../../../../../../../../_metronic/assets/ts/components";
-import { deleteFile } from "../../../../core/_requests";
-import { useSwal } from "../../../../../../../../customProviders/useSwal";
+import { MenuComponent } from "../../../../../../../../../../../_metronic/assets/ts/components";
+import { deleteFile } from "../../../../../../core/_requests";
+import { useSwal } from "../../../../../../../../../../customProviders/useSwal";
 
 type Props = {
   id: ID;

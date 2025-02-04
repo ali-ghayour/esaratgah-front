@@ -1,6 +1,6 @@
 import { Route, Routes, Outlet, Navigate } from "react-router-dom";
 import { PageLink, PageTitle } from "../../../../_metronic/layout/core";
-import { FilesListWrapper } from "./files-list/FilesList";
+import { FileManagerWrapper } from "./content/FileManagerWrapper";
 
 const usersBreadcrumbs: Array<PageLink> = [
   {
@@ -17,7 +17,7 @@ const usersBreadcrumbs: Array<PageLink> = [
   },
 ];
 
-const FilesPage = () => {
+const FileManagerPage = () => {
   return (
     <Routes>
       <Route element={<Outlet />}>
@@ -26,7 +26,7 @@ const FilesPage = () => {
           element={
             <>
               <PageTitle breadcrumbs={usersBreadcrumbs}>Files list</PageTitle>
-              <FilesListWrapper/>
+              <FileManagerWrapper />
             </>
           }
         />
@@ -36,4 +36,4 @@ const FilesPage = () => {
   );
 };
 
-export default FilesPage;
+export default FileManagerPage;

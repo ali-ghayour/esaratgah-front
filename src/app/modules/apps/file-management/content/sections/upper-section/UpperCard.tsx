@@ -7,8 +7,7 @@ import { formatFileSize } from "../../../../../../helpers/formatFileSize";
 
 const UpperCard: FC = () => {
   // State to store total file info
-  const [totalFileInfo, setTotalFileInfo] =
-    useState<TotalFileInfoResponse>();
+  const [totalFileInfo, setTotalFileInfo] = useState<TotalFileInfoResponse>();
 
   // Fetch total file info on component mount
   useEffect(() => {
@@ -59,7 +58,8 @@ const UpperCard: FC = () => {
                 <a href="#">Keenthemes</a>
                 <span className="mx-3">|</span>
                 <a href="#">File Manager</a>
-                <span className="mx-3">|</span>{formatFileSize(totalFileInfo?.data?.totalSize as number)}
+                <span className="mx-3">|</span>
+                {formatFileSize(totalFileInfo?.data?.totalSize as number)}
                 <span className="mx-3">|</span>
                 {`${totalFileInfo?.data?.totalFiles} items`}
               </div>

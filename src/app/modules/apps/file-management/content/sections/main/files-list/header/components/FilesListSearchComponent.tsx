@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import {
   KTIcon,
   useDebounce,
-} from "../../../../../../../../../_metronic/helpers";
-import { useQueryRequest } from "../../../../core/QueryRequestProvider";
+} from "../../../../../../../../../../_metronic/helpers";
+import { useQueryRequest } from "../../../../../core/QueryRequestProvider";
 
 const FilesListSearchComponent = () => {
   const { updateState } = useQueryRequest();

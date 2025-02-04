@@ -1,7 +1,7 @@
 import { useListView } from "../../../../core/ListViewProvider";
-import { FilesListToolbar } from "./FilesListToolbar";
-import { FilesListGrouping } from "./FilesListGrouping";
-import { FilesListSearchComponent } from "./FilesListSearchComponent";
+import { FilesListToolbar } from "./components/FilesListToolbar";
+import { FilesListGrouping } from "./components/FilesListGrouping";
+import { FilesListSearchComponent } from "./components/FilesListSearchComponent";
 
 const FilesListHeader = () => {
   const { selected } = useListView();
