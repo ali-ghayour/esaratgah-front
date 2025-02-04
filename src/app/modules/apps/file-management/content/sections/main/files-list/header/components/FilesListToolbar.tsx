@@ -9,14 +9,11 @@ const FilesListToolbar = () => {
   };
 
   return (
-    <div
-      className="d-flex justify-content-end"
-      data-kt-user-table-toolbar="base"
-    >
+    <div className="d-flex justify-content-end">
       <FilesListFilter />
 
       {/* begin::Export */}
-      <button type="button" className="btn btn-light-primary me-3">
+      <button type="button" className="btn btn-primary btn-sm me-3">
         <KTIcon iconName="exit-up" className="fs-2" />
         Export
       </button>
@@ -25,7 +22,7 @@ const FilesListToolbar = () => {
       {/* begin::Upload File */}
       <button
         type="button"
-        className="btn btn-primary"
+        className="btn btn-primary btn-sm"
         onClick={openAddFileModal}
       >
         <KTIcon iconName="folder-up" className="fs-2" />

@@ -34,7 +34,7 @@ const FilesListFilter = () => {
       <button
         disabled={isLoading}
         type="button"
-        className="btn btn-light-primary me-3"
+        className="btn btn-light-primary btn-sm me-3"
         data-kt-menu-trigger="click"
         data-kt-menu-placement="bottom-end"
       >

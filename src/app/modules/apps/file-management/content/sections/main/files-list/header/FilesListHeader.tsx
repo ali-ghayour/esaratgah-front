@@ -2,20 +2,30 @@ import { useListView } from "../../../../core/ListViewProvider";
 import { FilesListToolbar } from "./components/FilesListToolbar";
 import { FilesListGrouping } from "./components/FilesListGrouping";
 import { FilesListSearchComponent } from "./components/FilesListSearchComponent";
+import { LowerHeader } from "./components/LowerHeader";
 
 const FilesListHeader = () => {
   const { selected } = useListView();
   return (
-    <div className="card-header border-0 pt-6">
-      <FilesListSearchComponent />
-      {/* begin::Card toolbar */}
-      <div className="card-toolbar">
-        {/* begin::Group actions */}
-        {selected.length > 0 ? <FilesListGrouping /> : <FilesListToolbar />}
-        {/* end::Group actions */}
+    <>
+      <div className="container-fluid align-items-stretch py-4">
+        <div className="row">
+          <div className="d-flex justify-content-between">
+            <FilesListSearchComponent />
+            <div className="d-flex">
+              {selected.length > 0 ? (
+                <FilesListGrouping />
+              ) : (
+                <FilesListToolbar />
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="row py-4 mt-3">
+          <LowerHeader/>
+        </div>
       </div>
-      {/* end::Card toolbar */}
-    </div>
+    </>
   );
 };
 

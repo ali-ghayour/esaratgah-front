@@ -27,8 +27,6 @@ const FilesListSearchComponent = () => {
   );
 
   return (
-    <div className="card-title">
-      {/* begin::Search */}
       <div className="d-flex align-items-center position-relative my-1">
         <KTIcon iconName="magnifier" className="fs-1 position-absolute ms-6" />
         <input
@@ -40,8 +38,6 @@ const FilesListSearchComponent = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-      {/* end::Search */}
-    </div>
   );
 };
 
