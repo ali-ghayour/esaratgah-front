@@ -14,7 +14,7 @@ const UsersListGrouping = () => {
     onSuccess: () => {
       // ✅ update detail view directly
       queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
-      clearSelected()
+      clearSelected?.()
     },
   })
 

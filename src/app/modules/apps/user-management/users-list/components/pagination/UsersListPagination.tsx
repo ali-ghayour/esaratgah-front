@@ -5,7 +5,7 @@ import {
 } from "../../core/QueryResponseProvider";
 import { useQueryRequest } from "../../core/QueryRequestProvider";
 import { PaginationState } from "../../../../../../../_metronic/helpers";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useListView } from "../../core/ListViewProvider";
 
 const mappedLabel = (label: string): string => {
@@ -29,12 +29,12 @@ const UsersListPagination = () => {
     if (!page || isLoading || pagination.page === page) {
       return;
     }
-    updateState({ page, items_per_page: +perPage });
+    updateState({ page, items_per_page: perPage });
   };
 
   // perpage config
   const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setPerPage(+event.target.value); // Update state on selection
+    setPerPage?.(+event.target.value); // Update state on selection
     UpdatePerPage(+event.target.value);
   };
   const UpdatePerPage = (items_per_page: number | undefined | null) => {

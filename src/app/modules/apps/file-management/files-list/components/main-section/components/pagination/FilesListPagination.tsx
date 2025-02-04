@@ -29,7 +29,7 @@ const FilesListPagination = () => {
     if (!page || isLoading || pagination.page === page) {
       return;
     }
-    updateState({ page, items_per_page: +perPage });
+    updateState({ page, items_per_page: perPage });
   };
 
   // perpage config
