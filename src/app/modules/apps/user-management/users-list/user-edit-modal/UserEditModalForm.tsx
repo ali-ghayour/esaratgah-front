@@ -37,14 +37,14 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading, roles }) => {
   const blankImg = toAbsoluteUrl("media/svg/avatars/blank.svg");
   const [avatarUrl, setAvatarUrl] = useState<string | undefined>(
     user.pic?.sizes?.medium
-      ? `${API_UPLOADS_URL}/../${user.pic.sizes.medium}`
+      ? API_UPLOADS_URL+user.pic.sizes.medium
       : blankImg
   );
 
   const handleSingleFileSelection = (file: File[] | null) => {
     if (file && file.length > 0) {
       formik.setFieldValue("pic", file[0]._id);
-      setAvatarUrl(`${API_UPLOADS_URL}/../${file[0].sizes?.medium}`);
+      setAvatarUrl(API_UPLOADS_URL+file[0].sizes?.medium);
     }
   };
 
@@ -304,7 +304,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading, roles }) => {
                         checked={formik.values.role === role._id} // Compare by role ID
                         disabled={formik.isSubmitting || isUserLoading}
                         onChange={(e) => {
-                          formik.setFieldValue("role", e.target.value); // Set the role ID
+                          formik.setFieldValue("role", +e.target.value); // Set the role ID
                         }}
                       />
                       {/* end::Input */}
