@@ -40,17 +40,17 @@ export const FilesList = () => {
             <div className="card-body d-flex justify-content-center text-center flex-column p-8">
               <a
                 target="_blank"
-                href={`${API_UPLOADS_URL}/${file.fileName}`}
+                href={`${API_UPLOADS_URL}${file.fileName}`}
                 className="text-gray-800 text-hover-primary d-flex flex-column no-select"
               >
                 <div className="symbol symbol-70px mb-5">
                   <img
-                    src={`${API_UPLOADS_URL}/../${file.sizes?.medium}`}
+                    src={`${API_UPLOADS_URL}${file.sizes?.medium}`}
                     className="theme-light-show"
                     alt={blankImg}
                   />
                   <img
-                    src={`${API_UPLOADS_URL}/${file.fileName}`}
+                    src={`${API_UPLOADS_URL}${file.fileName}`}
                     className="theme-dark-show"
                     alt={blankImg}
                   />

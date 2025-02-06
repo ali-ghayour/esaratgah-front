@@ -9,6 +9,8 @@ import { UsersListLoading } from "../components/loading/UsersListLoading";
 import { createUser, updateUser } from "../core/_requests";
 import { useQueryResponse } from "../core/QueryResponseProvider";
 import { Role } from "../../../role-management/roles-list/core/_models";
+import { useFileManagerModal } from "../../../../../customProviders/useFileManagerModal";
+import { File } from "../../../file-management/content/core/_models";
 
 type Props = {
   isUserLoading: boolean;
@@ -24,12 +26,38 @@ const editUserSchema = Yup.object().shape({
   family: Yup.string()
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols")
-    .required("Name is required"),
+    .required("Family is required"),
 });
 
 const UserEditModalForm: FC<Props> = ({ user, isUserLoading, roles }) => {
-  const { setItemIdForUpdate } = useListView();
+  const API_UPLOADS_URL = import.meta.env.VITE_APP_UPLOADS_URL;
+  const { setItemIdForUpdate, itemIdForUpdate } = useListView();
   const { refetch } = useQueryResponse();
+  const { openModal } = useFileManagerModal();
+  const blankImg = toAbsoluteUrl("media/svg/avatars/blank.svg");
+  const [avatarUrl, setAvatarUrl] = useState<string | undefined>(
+    user.pic?.sizes?.medium
+      ? `${API_UPLOADS_URL}/../${user.pic.sizes.medium}`
+      : blankImg
+  );
+
+  const handleSingleFileSelection = (file: File[] | null) => {
+    if (file && file.length > 0) {
+      formik.setFieldValue("pic", file[0]._id);
+      setAvatarUrl(`${API_UPLOADS_URL}/../${file[0].sizes?.medium}`);
+    }
+  };
+
+  const handleRemoveAvatar = () => {
+    formik.setFieldValue("pic", null);
+    setAvatarUrl(blankImg);
+  };
+
+  // const handleMultipleFileSelection = (files: string | string[] | null) => {
+  //   if (files && Array.isArray(files)) {
+  //     alert(`Selected Files: ${files.join(", ")}`);
+  //   }
+  // };
 
   const [userForEdit] = useState<User>({
     ...user,
@@ -48,9 +76,6 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading, roles }) => {
     }
     setItemIdForUpdate(undefined);
   };
-
-  const blankImg = toAbsoluteUrl("media/svg/avatars/blank.svg");
-  const userAvatarImg = toAbsoluteUrl(`media/${userForEdit.pic}`);
 
   const formik = useFormik({
     initialValues: userForEdit,
@@ -101,49 +126,51 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading, roles }) => {
             <div
               className="image-input image-input-outline"
               data-kt-image-input="true"
-              style={{ backgroundImage: `url('${blankImg}')` }}
             >
               {/* begin::Preview existing avatar */}
-              <div
-                className="image-input-wrapper w-125px h-125px"
-                style={{ backgroundImage: `url('${userAvatarImg}')` }}
-              ></div>
+              <div className="image-input-wrapper w-125px h-125px">
+                <img
+                  src={avatarUrl}
+                  className="w-125px h-125px"
+                  alt={blankImg}
+                />
+              </div>
               {/* end::Preview existing avatar */}
 
               {/* begin::Label */}
-              {/* <label
-              className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
-              data-kt-image-input-action='change'
-              data-bs-toggle='tooltip'
-              title='Change avatar'
-            >
-              <i className='bi bi-pencil-fill fs-7'></i>
-
-              <input type='file' name='avatar' accept='.png, .jpg, .jpeg' />
-              <input type='hidden' name='avatar_remove' />
-            </label> */}
+              <div onClick={() => openModal(handleSingleFileSelection, false)}>
+                <label
+                  className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                  data-kt-image-input-action="change"
+                  data-bs-toggle="tooltip"
+                  title="Change avatar"
+                >
+                  <i className="bi bi-pencil-fill fs-7"></i>
+                </label>
+              </div>
               {/* end::Label */}
 
-              {/* begin::Cancel */}
-              {/* <span
-              className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
-              data-kt-image-input-action='cancel'
-              data-bs-toggle='tooltip'
-              title='Cancel avatar'
-            >
-              <i className='bi bi-x fs-2'></i>
-            </span> */}
-              {/* end::Cancel */}
+              {/* <div onClick={() => openModal(handleMultipleFileSelection, true)}>
+                <label
+                  className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                  data-kt-image-input-action="change"
+                  data-bs-toggle="tooltip"
+                  title="Change avatar"
+                >
+                  <i className="bi bi-pencil-fill fs-7"></i>
+                </label>
+              </div> */}
 
               {/* begin::Remove */}
-              {/* <span
-              className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
-              data-kt-image-input-action='remove'
-              data-bs-toggle='tooltip'
-              title='Remove avatar'
-            >
-              <i className='bi bi-x fs-2'></i>
-            </span> */}
+              <span
+                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                data-kt-image-input-action="remove"
+                data-bs-toggle="tooltip"
+                title="Remove avatar"
+                onClick={handleRemoveAvatar}
+              >
+                <i className="bi bi-x fs-2"></i>
+              </span>
               {/* end::Remove */}
             </div>
             {/* end::Image input */}
@@ -230,15 +257,19 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading, roles }) => {
               {...formik.getFieldProps("phone_number")}
               className={clsx(
                 "form-control form-control-solid mb-3 mb-lg-0",
-                { "is-invalid": formik.touched.phone_number && formik.errors.phone_number },
                 {
-                  "is-valid": formik.touched.phone_number && !formik.errors.phone_number,
+                  "is-invalid":
+                    formik.touched.phone_number && formik.errors.phone_number,
+                },
+                {
+                  "is-valid":
+                    formik.touched.phone_number && !formik.errors.phone_number,
                 }
               )}
               type="text"
               name="phone_number"
               autoComplete="off"
-              disabled={true}
+              disabled={itemIdForUpdate ? true : false}
             />
             {/* end::Input */}
             {formik.touched.phone_number && formik.errors.phone_number && (
@@ -273,7 +304,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading, roles }) => {
                         checked={formik.values.role === role._id} // Compare by role ID
                         disabled={formik.isSubmitting || isUserLoading}
                         onChange={(e) => {
-                          formik.setFieldValue("role", +e.target.value); // Set the role ID
+                          formik.setFieldValue("role", e.target.value); // Set the role ID
                         }}
                       />
                       {/* end::Input */}

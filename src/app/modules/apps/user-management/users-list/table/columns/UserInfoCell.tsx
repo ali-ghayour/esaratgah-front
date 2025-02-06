@@ -1,13 +1,13 @@
 
 // import clsx from 'clsx'
 import {FC} from 'react'
-import {toAbsoluteUrl} from '../../../../../../../_metronic/helpers'
+// import {toAbsoluteUrl} from '../../../../../../../_metronic/helpers'
 import {User} from '../../core/_models'
 
 type Props = {
   user: User
 }
-
+const API_UPLOADS_URL = import.meta.env.VITE_APP_UPLOADS_URL;
 const UserInfoCell: FC<Props> = ({ user }) => (
   <div className="d-flex align-items-center">
     {/* begin:: Avatar */}
@@ -16,7 +16,7 @@ const UserInfoCell: FC<Props> = ({ user }) => (
         {user.pic ? (
           <div className="symbol-label">
             <img
-              src={toAbsoluteUrl(`media/${user.pic}`)}
+              src={API_UPLOADS_URL+user.pic.sizes?.small}
               alt={user.name}
               className="w-100"
             />
@@ -36,10 +36,10 @@ const UserInfoCell: FC<Props> = ({ user }) => (
     </div>
     <div className="d-flex flex-column">
       <a href="#" className="text-gray-800 text-hover-primary mb-1">
-        {user.name}
+        {user.full_name}
       </a>
       <a href="#" className="text-gray-800 text-hover-primary mb-1">
-        {user.family}
+        {user.username}
       </a>
     </div>
   </div>
