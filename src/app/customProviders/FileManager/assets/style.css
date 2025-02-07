@@ -1,0 +1,24 @@
+.selected-card {
+  border: 2px solid #0d6efd; /* Highlight with a border or background color */
+}
+/* Hide the checkbox by default */
+.hover-checkbox-custom ,
+.hover-edit-custom{
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.2s, opacity 0.2s;
+}
+
+/* Show the checkbox on hover */
+.card-custom:hover .hover-checkbox-custom,
+.card-custom:hover .hover-edit-custom {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Style the checkbox for better appearance */
+.form-check-input {
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+}

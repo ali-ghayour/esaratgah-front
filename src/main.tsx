@@ -21,7 +21,7 @@ import { AppRoutes } from "./app/routing/AppRoutes";
 import { AuthProvider, setupAxios } from "./app/modules/auth";
 import { ToastProvider } from "./app/customProviders/ToastProvider";
 import { SwalProvider } from "./app/customProviders/SwalProvider";
-import { FileManagerProvider } from "./app/customProviders/FileManagerProvider";
+import { FileManagerProvider } from "./app/customProviders/FileManager/FileManagerProvider";
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.
@@ -43,13 +43,13 @@ if (container) {
     <QueryClientProvider client={queryClient}>
       <MetronicI18nProvider>
         <AuthProvider>
-          <FileManagerProvider>
-            <ToastProvider>
-              <SwalProvider>
+          <ToastProvider>
+            <SwalProvider>
+              <FileManagerProvider>
                 <AppRoutes />
-              </SwalProvider>
-            </ToastProvider>
-          </FileManagerProvider>
+              </FileManagerProvider>
+            </SwalProvider>
+          </ToastProvider>
         </AuthProvider>
       </MetronicI18nProvider>
       <ReactQueryDevtools initialIsOpen={false} />

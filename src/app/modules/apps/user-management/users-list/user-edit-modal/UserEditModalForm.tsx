@@ -9,7 +9,7 @@ import { UsersListLoading } from "../components/loading/UsersListLoading";
 import { createUser, updateUser } from "../core/_requests";
 import { useQueryResponse } from "../core/QueryResponseProvider";
 import { Role } from "../../../role-management/roles-list/core/_models";
-import { useFileManagerModal } from "../../../../../customProviders/useFileManagerModal";
+import { useFileManagerModal } from "../../../../../customProviders/FileManager/useFileManagerModal";
 import { File } from "../../../file-management/content/core/_models";
 
 type Props = {

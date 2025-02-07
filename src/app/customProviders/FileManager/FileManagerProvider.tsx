@@ -1,10 +1,31 @@
-import React, { createContext, useState, ReactNode } from "react";
-import { Modal, Button, Spinner, Form, Alert } from "react-bootstrap";
-import { getFiles } from "../modules/apps/file-management/content/core/_requests";
-import { File } from "../modules/apps/file-management/content/core/_models";
+import React, {
+  createContext,
+  useState,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+} from "react";
+import { Modal, Button, Container, Row } from "react-bootstrap";
+import { File } from "../../modules/apps/file-management/content/core/_models";
+import { DropZone } from "./components/DropZone";
+import { FilesList } from "./components/FilesList";
+import { QueryRequestProvider } from "./core/QueryRequestProvider";
+import {
+  QueryResponseProvider,
+} from "./core/QueryResponseProvider";
+import { ListViewProvider } from "./core/ListViewProvider";
+import "./assets/style.css";
 
 interface FileManagerContextProps {
   openModal: (onSelect: (files: File[]) => void, multiple?: boolean) => void;
+  files: File[];
+  multipleSelection: boolean;
+  selectedFiles: File[];
+  setSelectedFiles: Dispatch<SetStateAction<File[]>>;
+  setMultipleSelection: Dispatch<SetStateAction<boolean>>;
+  setFiles: Dispatch<SetStateAction<File[]>>;
+  handleSelectFiles: (file: File) => void;
+  toggleFileSelection: (file: File) => void;
 }
 
 export const FileManagerContext = createContext<
@@ -21,14 +42,11 @@ export const FileManagerProvider: React.FC<{ children: ReactNode }> = ({
     ((files: File[]) => void) | null
   >(null);
   const [multipleSelection, setMultipleSelection] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const openModal = (onSelect: (files: File[]) => void, multiple = true) => {
     setShowModal(true);
     setOnSelectCallback(() => onSelect);
     setMultipleSelection(multiple);
-    fetchFiles();
   };
 
   const handleClose = () => {
@@ -58,36 +76,47 @@ export const FileManagerProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
-  const fetchFiles = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await getFiles(""); // Pass query string if needed
-      setFiles(response?.data || []);
-    } catch (err) {
-      setError("Failed to fetch files. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <FileManagerContext.Provider value={{ openModal }}>
-      {children}
+    <FileManagerContext.Provider
+      value={{
+        openModal,
+        files,
+        selectedFiles,
+        setSelectedFiles,
+        multipleSelection,
+        setMultipleSelection,
+        setFiles,
+        handleSelectFiles,
+        toggleFileSelection,
+      }}
+    >
+      <QueryRequestProvider>
+        <QueryResponseProvider>
+          <ListViewProvider>
+            {children}
 
-      {/* File Manager Modal */}
-      <Modal
-        show={showModal}
-        onHide={handleClose}
-        backdrop="static"
-        size="lg"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>File Manager</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {loading && (
+            {/* File Manager Modal */}
+            <Modal
+              show={showModal}
+              onHide={handleClose}
+              backdrop="static"
+              size="lg"
+              centered
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>File Manager</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Container>
+                  <Row>
+                    <DropZone />
+                  </Row>
+                  <Row>
+                    <FilesList />
+                  </Row>
+                </Container>
+
+                {/* {loading && (
             <div className="d-flex justify-content-center">
               <Spinner animation="border" />
             </div>
@@ -112,17 +141,20 @@ export const FileManagerProvider: React.FC<{ children: ReactNode }> = ({
 
           {!loading && !error && files.length === 0 && (
             <p className="text-muted text-center">No files available</p>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={handleSelectFiles}>
-            Select Files
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          )} */}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Cancel
+                </Button>
+                <Button variant="primary" onClick={handleSelectFiles}>
+                  Select Files
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </ListViewProvider>
+        </QueryResponseProvider>
+      </QueryRequestProvider>
     </FileManagerContext.Provider>
   );
 };
