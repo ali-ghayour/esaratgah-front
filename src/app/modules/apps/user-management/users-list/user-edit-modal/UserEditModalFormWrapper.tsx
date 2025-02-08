@@ -19,6 +19,8 @@ const UserEditModalFormWrapper = () => {
     },
     {
       cacheTime: 0,
+      keepPreviousData: true,
+      refetchOnWindowFocus: false,
       enabled: enabledQuery,
       onError: (err) => {
         setItemIdForUpdate(undefined);
@@ -27,9 +29,22 @@ const UserEditModalFormWrapper = () => {
     }
   );
 
-  const { data: roles } = useQuery("roles", () => {
-    return getRoles();
-  });
+  const { data: roles } = useQuery(
+    "roles",
+    () => {
+      return getRoles();
+    },
+    {
+      cacheTime: 0,
+      keepPreviousData: true,
+      refetchOnWindowFocus: false,
+      enabled: enabledQuery,
+      onError: (err) => {
+        setItemIdForUpdate(undefined);
+        console.error(err);
+      },
+    }
+  );
 
   if (!itemIdForUpdate) {
     return (
