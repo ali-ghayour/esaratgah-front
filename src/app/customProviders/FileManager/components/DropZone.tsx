@@ -2,18 +2,14 @@ import { useListView } from "../core/ListViewProvider";
 import { useQueryResponse } from "../core/QueryResponseProvider";
 import { useDropzone, FileRejection, Accept } from "react-dropzone";
 import { uploadFile } from "../core/_requests";
-import { useQueryClient } from "react-query";
-import { QUERIES } from "../../../../_metronic/helpers";
 
 export const DropZone = () => {
   const { setItemIdForUpdate } = useListView();
   const { refetch } = useQueryResponse();
-  const queryClient = useQueryClient()
 
   const cancel = (withRefresh?: boolean) => {
     if (withRefresh) {
       setTimeout(() => {
-        queryClient.invalidateQueries([`${QUERIES.FILES_LIST}`]);
         refetch();
       }, 2000); // Adjust delay based on your server's response time
     }
@@ -23,7 +19,7 @@ export const DropZone = () => {
   const handleUpload = async (uploadedFiles: File[]) => {
     try {
       await uploadFile(uploadedFiles);
-      refetch();
+      cancel(true);
     } catch (ex) {
       console.error(ex);
     } finally {

@@ -4,11 +4,11 @@ import { useFileManagerModal } from "../useFileManagerModal";
 import { File } from "../core/_models";
 
 type Props = {
-  file : File
+  file: File;
 };
 
 const FileSelectionCell: FC<Props> = ({ file }) => {
-  const { selectedFiles , toggleFileSelection} = useFileManagerModal()
+  const { selectedFiles, toggleFileSelection } = useFileManagerModal();
   return (
     <div
       className={clsx(
@@ -19,8 +19,6 @@ const FileSelectionCell: FC<Props> = ({ file }) => {
     >
       <input
         type="hidden"
-        // className="form-check-input"
-        // checked={selectedFiles.some((f) => f._id === file._id)}
         onChange={() => toggleFileSelection(file)}
         onClick={(e) => e.stopPropagation()} // Prevent click from propagating to the card container
       />

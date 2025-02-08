@@ -11,7 +11,6 @@ type Props = {
   id: ID;
 };
 
-
 const FileActionCell: FC<Props> = ({ id }) => {
   const { setItemIdForUpdate } = useListView();
   const { query } = useQueryResponse();
