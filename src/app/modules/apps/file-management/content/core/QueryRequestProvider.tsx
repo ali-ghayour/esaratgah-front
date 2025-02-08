@@ -7,15 +7,18 @@ import {
   WithChildren,
 } from "../../../../../../_metronic/helpers";
 
-initialQueryRequest.state.items_per_page = 24;
-initialQueryRequest.state.sort = "createdat";
-initialQueryRequest.state.order = "desc";
+// initialQueryRequest.state.items_per_page = 24;
+// initialQueryRequest.state.sort = "createdat";
+// initialQueryRequest.state.order = "desc";
 
 const QueryRequestContext =
   createContext<QueryRequestContextProps>(initialQueryRequest);
 
 const QueryRequestProvider: FC<WithChildren> = ({ children }) => {
-  const [state, setState] = useState<QueryState>(initialQueryRequest.state);
+  const [state, setState] = useState<QueryState>({
+    ...initialQueryRequest.state,
+    items_per_page: 24,
+  });
 
   const updateState = (updates: Partial<QueryState>) => {
     const updatedState = { ...state, ...updates } as QueryState;
