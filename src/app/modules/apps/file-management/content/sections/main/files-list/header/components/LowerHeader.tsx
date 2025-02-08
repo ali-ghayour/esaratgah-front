@@ -9,10 +9,10 @@ export const LowerHeader = () => {
   const { isAllSelected, onSelectAll } = useListView();
   const { updateState } = useQueryRequest();
   const [sortBy, setSortBy] = useState<string>("createdAt");
-  const [order, setOrder] = useState<"asc" | "desc">("asc");
+  const [order, setOrder] = useState<"asc" | "desc">("desc");
 
   // Combine sort and order state for debouncing
-  const [sortState, setSortState] = useState<string>("createdAt_asc");
+  const [sortState, setSortState] = useState<string>("createdAt_desc");
   const debouncedSortState = useDebounce(sortState, 1000);
 
   useEffect(() => {
