@@ -5,21 +5,19 @@ import { useFileManagerModal } from "../useFileManagerModal";
 // import { FileActionCell } from "./FileActionCell";
 import {
   useQueryResponse,
-  useQueryResponseData,
 } from "../core/QueryResponseProvider";
-import { useEffect } from "react";
 
 export const FilesList = () => {
-  const uploadedFiles = useQueryResponseData();
-  const { isLoading, refetch } = useQueryResponse();
-  const { selectedFiles, setSelectedFiles, files, setFiles } =
+  // const uploadedFiles = useQueryResponseData();
+  const { isLoading } = useQueryResponse();
+  const { selectedFiles, setSelectedFiles, files } =
     useFileManagerModal();
   const API_UPLOADS_URL = import.meta.env.VITE_APP_UPLOADS_URL;
 
-  useEffect(() => {
-    refetch();
-    setFiles(uploadedFiles);
-  }, [refetch, setFiles, uploadedFiles]);
+  // useEffect(() => {
+  //   refetch();
+  //   setFiles(uploadedFiles);
+  // }, [refetch, setFiles, uploadedFiles]);
 
   return (
     <Row className="pt-4 px-4">

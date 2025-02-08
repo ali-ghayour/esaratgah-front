@@ -29,6 +29,7 @@ const FilesListPagination = () => {
     if (!page || isLoading || pagination.page === page) {
       return;
     }
+    console.log(page, perPage);
     updateState({ page, items_per_page: perPage });
   };
 

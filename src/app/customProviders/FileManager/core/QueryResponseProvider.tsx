@@ -14,16 +14,20 @@ import {
 import { getFiles } from "./_requests";
 import { File } from "./_models";
 import { useQueryRequest } from "./QueryRequestProvider";
+import { useFileManagerModal } from "../useFileManagerModal";
 
 const QueryResponseContext = createResponseContext<File>(initialQueryResponse);
 const QueryResponseProvider: FC<WithChildren> = ({ children }) => {
   const { state } = useQueryRequest();
   const [query, setQuery] = useState<string>(stringifyRequestQuery(state));
   const updatedQuery = useMemo(() => stringifyRequestQuery(state), [state]);
+  const [isQueryEnabled, setIsQueryEnabled] = useState(false);
+  const {setFiles} = useFileManagerModal()
 
   useEffect(() => {
     if (query !== updatedQuery) {
       setQuery(updatedQuery);
+      setIsQueryEnabled(true)
     }
   }, [updatedQuery]);
 
@@ -33,11 +37,20 @@ const QueryResponseProvider: FC<WithChildren> = ({ children }) => {
     data: response,
   } = useQuery(
     `${QUERIES.FILES_LIST}-${query}`,
-    () => {
-      return getFiles(query);
-    },
-    { cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false }
-    );
+    () => getFiles(query),
+    // () => {
+    //   return getFiles(query);
+    // },
+    {
+      cacheTime: 0,
+      keepPreviousData: true,
+      refetchOnWindowFocus: false,
+      enabled: isQueryEnabled,
+      onSuccess: (data) => {
+        setFiles(data?.data || []);
+      },
+    }
+  );
   // const { data: totalFileInfo } = useQuery("total-file-info", () => {
   //   return getTotalFileInfo();
   // });
