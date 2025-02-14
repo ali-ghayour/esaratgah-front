@@ -22,6 +22,7 @@ import { AuthProvider, setupAxios } from "./app/modules/auth";
 import { ToastProvider } from "./app/customProviders/ToastProvider";
 import { SwalProvider } from "./app/customProviders/SwalProvider";
 import { FileManagerProvider } from "./app/customProviders/FileManager/FileManagerProvider";
+import { SocketProvider } from "./app/customProviders/SocketProvider";
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.
@@ -45,9 +46,11 @@ if (container) {
         <AuthProvider>
           <ToastProvider>
             <SwalProvider>
-              <FileManagerProvider>
-                <AppRoutes />
-              </FileManagerProvider>
+              <SocketProvider>
+                <FileManagerProvider>
+                  <AppRoutes />
+                </FileManagerProvider>
+              </SocketProvider>
             </SwalProvider>
           </ToastProvider>
         </AuthProvider>
