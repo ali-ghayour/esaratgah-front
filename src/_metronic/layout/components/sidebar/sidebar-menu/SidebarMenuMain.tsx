@@ -173,6 +173,11 @@ const SidebarMenuMain = () => {
           title="Drawer Chart"
           hasBullet={true}
         />
+        <SidebarMenuItem
+          to="/apps/chat/massager"
+          title="Massager"
+          hasBullet={true}
+        />
       </SidebarMenuItemWithSub>
       <SidebarMenuItemWithSub
         to="/apps/user-management/"

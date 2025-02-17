@@ -13,12 +13,10 @@ const SOCKET_URL = import.meta.env.VITE_APP_API_URL;
 
 const SocketContext = createContext<{
   socket: Socket | null;
-  connectSocket: () => void;
-  disconnectSocket: () => void;
+  sendMessage: (message: string, receiverId: string) => void;
 }>({
   socket: null,
-  connectSocket: () => {},
-  disconnectSocket: () => {},
+  sendMessage: () => {},
 });
 
 export const useSocket = () => useContext(SocketContext);
@@ -29,7 +27,6 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
   const { currentUser, auth } = useAuth();
   const [socket, setSocket] = useState<Socket | null>(null);
 
-  // 🔥 Use `useCallback` to ensure stable functions (avoids unnecessary re-renders)
   const connectSocket = useCallback(() => {
     if (!socket && currentUser) {
       const newSocket = io(SOCKET_URL, {
@@ -58,10 +55,21 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     return () => disconnectSocket();
-  }, [currentUser, connectSocket, disconnectSocket]); // ✅ Correct dependencies
+  }, [currentUser, connectSocket, disconnectSocket]);
+
+  // 🔥 Function to send a message
+  const sendMessage = (message: string, receiverId: string) => {
+    if (socket) {
+      socket.emit("sendMessage", {
+        message,
+        receiverId,
+        senderId: currentUser?._id,
+      });
+    }
+  };
 
   return (
-    <SocketContext.Provider value={{ socket, connectSocket, disconnectSocket }}>
+    <SocketContext.Provider value={{ socket, sendMessage }}>
       {children}
     </SocketContext.Provider>
   );
